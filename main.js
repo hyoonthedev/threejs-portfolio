@@ -3,6 +3,9 @@ import './style.css'
 // Import Three.js library
 import * as THREE from 'three';
 
+// Makes scene more interactive, more around scene with mouse
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
 // Always need three objects
 // 1. Scene 2. Camera 3. Renderer 
 
@@ -36,13 +39,36 @@ const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 // Material for texture and colour (Wrapping Paper)
 // Most need light source, Basic will not require it
 // Parameters such as color and wireframe
-const material = new THREE.MeshBasicMaterial( { color: 0xFF6347, wireframe: true });
+// When changing to StandardMaterial from BasicMaterial, it will go black due to no lighting
+const material = new THREE.MeshStandardMaterial( { color: 0xFF6347 });
 
 // Mesh is what we want to add to scene
 const torus = new THREE.Mesh(geometry, material);
 
 // Add Mesh 
 scene.add(torus);
+
+// Lighting
+// Different lights, PointLight adds light in all directions as a lightbulb would
+// AmbientLight will light up entire scene
+const pointLight = new THREE.PointLight(0xffffff);
+const ambientLight = new THREE.AmbientLight(0xffffff);
+
+// Set light position
+pointLight.position.set(20,20,20)
+
+// Add to scene
+scene.add(pointLight, ambientLight)
+
+// Helpers
+// Will show Light Source position as a wireframe
+const lightHelper = new THREE.PointLightHelper(pointLight)
+// Perspective as a grid
+const gridHelper = new THREE.GridHelper(200, 50);
+scene.add(lightHelper, gridHelper)
+
+// Call OrbitControls, pass in camera and domElement(Listen for dom events on mouse and update camera position accordingly)
+const controls = new OrbitControls(camera, renderer.domElement);
 
 // To see it need to rerender screen
 // Can use renderer.render( scene, camera ) to render, but dont want to have to call it constantly
@@ -54,6 +80,9 @@ function animate() {
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
+
+  // OrbitalControl, to update changes in UI
+  controls.update();
 
   renderer.render(scene, camera);
 }
