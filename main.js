@@ -107,11 +107,30 @@ const avatarTexture = new THREE.TextureLoader().load('avatar.jpg');
 // Create Mesh
 const avatar = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
-  new THREE.MeshBasicMaterial( { map: avatarTexture})
+  new THREE.MeshBasicMaterial({ map: avatarTexture })
 )
 
 // Add Avatar Box to Scene
 scene.add(avatar);
+
+// Planet
+// Load Texture
+const planetTexture = new THREE.TextureLoader().load('planet.jpg');
+const normalTexture = new THREE.TextureLoader().load('normal.jpg');
+
+// Create Mesh
+const planet = new THREE.Mesh(
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshStandardMaterial({ 
+    map: planetTexture,
+
+    // Add some normal depth, lets light bounce of it
+    normalMap: normalTexture,
+  })
+)
+
+// Add Planet to Scene
+scene.add(planet);
 
 // To see it need to rerender screen
 // Can use renderer.render( scene, camera ) to render, but dont want to have to call it constantly
