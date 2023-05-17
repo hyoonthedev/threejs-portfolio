@@ -70,6 +70,28 @@ scene.add(lightHelper, gridHelper)
 // Call OrbitControls, pass in camera and domElement(Listen for dom events on mouse and update camera position accordingly)
 const controls = new OrbitControls(camera, renderer.domElement);
 
+// Add Stars
+function addStar() {
+  // Star will be a sphere
+  const geometry = new THREE.SphereGeometry(0.25,4,4);
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+
+  // Join them together
+  const star = new THREE.Mesh(geometry, material);
+
+  // Randomly generate x, y and z position
+  // Fill Array with 3 values (Array(3).fill()), map to randFloatSpred which generates number ranomdly from negative to positive value 
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100))
+
+  // Take random number and set to position of star
+  star.position.set(x, y, z)
+
+  // Add star to scene
+  scene.add(star)
+}
+
+// Add any amount of stars
+Array(200).fill().forEach(addStar)
 // To see it need to rerender screen
 // Can use renderer.render( scene, camera ) to render, but dont want to have to call it constantly
 
