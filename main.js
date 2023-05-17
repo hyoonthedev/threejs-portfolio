@@ -92,9 +92,17 @@ function addStar() {
 
 // Add any amount of stars
 Array(200).fill().forEach(addStar)
+
+// Add Background
+// Load Image
+const spaceTexture = new THREE.TextureLoader().load('space.png');
+
+// Add texture to background
+scene.background = spaceTexture
+
+
 // To see it need to rerender screen
 // Can use renderer.render( scene, camera ) to render, but dont want to have to call it constantly
-
 function animate() {
   requestAnimationFrame(animate);
 
