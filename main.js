@@ -81,25 +81,37 @@ function addStar() {
 
   // Randomly generate x, y and z position
   // Fill Array with 3 values (Array(3).fill()), map to randFloatSpred which generates number ranomdly from negative to positive value 
-  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100))
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
 
   // Take random number and set to position of star
-  star.position.set(x, y, z)
+  star.position.set(x, y, z);
 
   // Add star to scene
-  scene.add(star)
+  scene.add(star);
 }
 
 // Add any amount of stars
-Array(200).fill().forEach(addStar)
+Array(200).fill().forEach(addStar);
 
 // Add Background
 // Load Image
 const spaceTexture = new THREE.TextureLoader().load('space.png');
 
 // Add texture to background
-scene.background = spaceTexture
+scene.background = spaceTexture;
 
+// Avatar Box
+// Load Texture
+const avatarTexture = new THREE.TextureLoader().load('avatar.jpg');
+
+// Create Mesh
+const avatar = new THREE.Mesh(
+  new THREE.BoxGeometry(3, 3, 3),
+  new THREE.MeshBasicMaterial( { map: avatarTexture})
+)
+
+// Add Avatar Box to Scene
+scene.add(avatar);
 
 // To see it need to rerender screen
 // Can use renderer.render( scene, camera ) to render, but dont want to have to call it constantly
