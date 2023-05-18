@@ -65,7 +65,7 @@ scene.add(pointLight, ambientLight)
 const lightHelper = new THREE.PointLightHelper(pointLight)
 // Perspective as a grid
 const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(lightHelper, gridHelper)
+// scene.add(lightHelper, gridHelper)
 
 // Call OrbitControls, pass in camera and domElement(Listen for dom events on mouse and update camera position accordingly)
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -131,6 +131,39 @@ const planet = new THREE.Mesh(
 
 // Add Planet to Scene
 scene.add(planet);
+
+// Reposition Planet
+// Both ways will work, up to preference
+planet.position.z = 30;
+planet.position.setX(-10);
+
+// Camera Move
+
+function moveCamera() {
+
+  // Calculate where user is scrolled to
+  // Will give dimensions of viewport, top property will show how far from top of the page
+  const t = document.body.getBoundingClientRect().top;
+
+  // Rotate planet whenever function is called
+  planet.rotation.x += 0.05;
+  planet.rotation.y += 0.075;
+  planet.rotation.z += 0.05;
+
+  // Rotate avatar whenever function is called
+  avatar.rotation.y += 0.01;
+  avatar.rotation.z += 0.01;
+
+  // Change position of camera
+  // t will always be negative number, so multiple with another negative number
+  camera.position.z = t * -0.01;
+  camera.position.x = t * -0.0002;
+  camera.position.y = t * -0.0002;
+
+}
+
+// Will use function everytime user scrolls
+document.body.onscroll = moveCamera;
 
 // To see it need to rerender screen
 // Can use renderer.render( scene, camera ) to render, but dont want to have to call it constantly
