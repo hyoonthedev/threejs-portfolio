@@ -40,7 +40,7 @@ const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 // Most need light source, Basic will not require it
 // Parameters such as color and wireframe
 // When changing to StandardMaterial from BasicMaterial, it will go black due to no lighting
-const material = new THREE.MeshStandardMaterial( { color: 0xFF6347 });
+const material = new THREE.MeshStandardMaterial( { color: 0x5F9EA0 });
 
 // Mesh is what we want to add to scene
 const torus = new THREE.Mesh(geometry, material);
