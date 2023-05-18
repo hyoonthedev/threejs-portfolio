@@ -12,7 +12,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // Scene is like container, holds all objects camera and lights 
 const scene = new THREE.Scene();
 
-// Different Cameras, Perspective mimics what human eyes can see (Aspect Ratio, Field of View, View Frustrum (What is visible relative to camera))
+// Different Cameras, Perspective mimics what human eyes can see (Aspect Ratio, Field of View, View Frustum (What is visible relative to camera))
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 // Render graphis to scene
